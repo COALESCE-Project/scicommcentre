@@ -1,0 +1,6 @@
+name: Coalesce Platform Version
+type: theme
+description: "A special theme for Coalesce Scicomm Centre."
+core_version_requirement: ^8 || ^10 
+core: 10.x
+base theme: classy

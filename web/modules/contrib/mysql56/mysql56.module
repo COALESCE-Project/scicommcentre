@@ -1,0 +1,22 @@
+<?php
+
+/**
+ * @file
+ * The MySQL 5.6 module provides the connection between Drupal and a MySQL, MariaDB or equivalent database.
+ */
+
+use Drupal\Core\Routing\RouteMatchInterface;
+
+/**
+ * Implements hook_help().
+ */
+function mysql56_help($route_name, RouteMatchInterface $route_match) {
+  switch ($route_name) {
+    case 'help.page.mysql56':
+      $output = '';
+      $output .= '<h3>' . t('About') . '</h3>';
+      $output .= '<p>' . t('The MySQL 5.6 module extends the MySQL module, adding compatibility for MySQL 5.6 and MariaDB 10.0.') . '</p>';
+      return $output;
+
+  }
+}

@@ -1,0 +1,20 @@
+{
+    "name": "drupal/mysql56",
+    "type": "drupal-module",
+    "description": "MySQL 5.6 Driver.",
+    "license": "GPL-2.0-or-later",
+    "require": {
+        "drupal/core": "^9.4 || 10.0.* || 10.1.* || 10.2.*"
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-8.x-1.x": "1.x-dev"
+        }
+    },
+    "autoload": {
+        "psr-4": {
+            "Drupal\\Driver\\Database\\mysql\\": "",
+            "Drupal\\mysql56\\": "src"
+        }
+    }
+}

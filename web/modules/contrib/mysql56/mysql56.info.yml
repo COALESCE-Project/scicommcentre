@@ -1,0 +1,11 @@
+name: MySQL 5.6
+type: module
+description: 'Database driver for MySQL with compatibility for MySQL 5.6 or higher and MariaDB 10.0 or higher.'
+core_version_requirement: ^9.4 || ^10
+dependencies:
+  - drupal:mysql
+
+# Information added by Drupal.org packaging script on 2023-12-15
+version: '8.x-1.7'
+project: 'mysql56'
+datestamp: 1702662946
