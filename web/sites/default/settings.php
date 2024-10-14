@@ -710,7 +710,7 @@ $settings['update_free_access'] = FALSE;
  */
 # $config['system.site']['name'] = 'My Drupal site';
 # $config['user.settings']['anonymous'] = 'Visitor';
-
+$config['system.logging']['error_level'] = 'verbose';
 /**
  * Load services definition file.
  */
@@ -882,7 +882,7 @@ $settings['migrate_node_migrate_type_classic'] = FALSE;
 #   include $app_root . '/' . $site_path . '/settings.local.php';
 # }
 $databases['default']['default'] = array (
-  'database' => 'scicommcentre',
+  'database' => 'scicommcentre_backup',
   'username' => 'root',
   'password' => '',
   'prefix' => '',

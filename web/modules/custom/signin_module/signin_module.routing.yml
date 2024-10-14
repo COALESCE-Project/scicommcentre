@@ -1,0 +1,7 @@
+signin_module.signin_form:
+  path: '/signin'
+  defaults:
+    _form: '\Drupal\signin_module\Form\SigninForm'
+    _title: 'User Sign In'
+  requirements:
+    _permission: 'access content'

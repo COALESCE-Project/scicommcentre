@@ -1,0 +1,14 @@
+uuid: 68324c3d-4ead-4792-8ba1-bd44c5bbd0b2
+langcode: en
+status: true
+dependencies: {  }
+_core:
+  default_config_hash: vymHlgJy26BuI5GGj9-IXjwR3dRC5C0tij4BpWJnoqw
+id: feedback
+label: 'Website feedback'
+recipients:
+  - abdul.abbasi@lut.fi
+reply: ''
+weight: 0
+message: 'Your message has been sent.'
+redirect: ''

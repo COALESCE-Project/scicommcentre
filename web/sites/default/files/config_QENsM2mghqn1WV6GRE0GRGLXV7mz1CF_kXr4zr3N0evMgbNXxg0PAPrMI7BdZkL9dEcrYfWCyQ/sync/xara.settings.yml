@@ -1,0 +1,65 @@
+_core:
+  default_config_hash: aopeQgshZnfHQ8RM7ICEnV8Drwd5fovQfmz9QznVQJ0
+favicon:
+  mimetype: image/vnd.microsoft.icon
+  path: 'public://ICO cc_0.ico'
+  use_default: false
+features:
+  comment_user_picture: true
+  comment_user_verification: true
+  favicon: true
+  node_user_picture: true
+logo:
+  path: 'public://EU LOGO_6.png'
+  use_default: false
+container_width: '1170'
+header_width: header_width_contained
+main_width: main_width_contained
+footer_width: footer_width_contained
+slider_show: 1
+slider_code: "<li class=\"\">\r\n<h1>Welcome to the European Competence Centre for Science Communication</h1>\r\n<p style=\"text-align:justify;\"><br>Our role is to develop and mainstream science communication and to foster connections between society and science</p>\r\n</li>"
+slider_image:
+  - '30'
+slider_image_path: ''
+slider_speed: '5000'
+header_page_content_position: center
+front_sidebar: 0
+sidebar_width_default: 1
+sidebar_width_left: '30'
+sidebar_width_right: '30'
+copyright_text: 1
+rtl: 0
+node_author_pic: 0
+node_tags: 0
+social_icons_show: 1
+facebook_url: ''
+twitter_url: 'https://twitter.com/scicommEU'
+instagram_url: ''
+linkedin_url: 'https://www.linkedin.com/company/coalesce-scicomm'
+youtube_url: 'https://www.youtube.com/@ScicommEU'
+vimeo_url: ''
+telegram_url: ''
+whatsapp_url: ''
+github_url: ''
+vk_url: ''
+fontawesome_four: 0
+fontawesome_five: 0
+bootstrapicons: 0
+comment_user_pic: 1
+highlight_author_comment: 0
+body_font_size: '1'
+main_menu_default: 1
+main_menu_top_size: '1'
+main_menu_top_weight: '700'
+main_menu_top_transform: none
+main_menu_sub_size: '0.9'
+main_menu_sub_weight: '700'
+main_menu_sub_transform: none
+page_title_default: 1
+page_title_size: '2.6'
+page_title_transform: none
+font_src: local
+scrolltotop_on: 1
+styling: 0
+styling_code: ''
+fontawesome_six: 0

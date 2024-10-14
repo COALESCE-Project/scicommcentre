@@ -1,0 +1,7 @@
+name: 'List Registered Users'
+type: module
+description: 'A custom module to list all registered users with their email, full name, and role.'
+core_version_requirement: ^10
+package: Custom
+dependencies:
+  - drupal:user

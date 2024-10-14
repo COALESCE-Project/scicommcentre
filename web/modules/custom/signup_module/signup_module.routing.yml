@@ -1,0 +1,7 @@
+signup_module.signup_form:
+  path: '/signup'
+  defaults:
+    _form: '\Drupal\signup_module\Form\SignupForm'
+    _title: 'User Sign-Up'
+  requirements:
+    _permission: 'access content'

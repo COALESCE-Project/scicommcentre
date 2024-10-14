@@ -1,0 +1,8 @@
+uuid: 8ba596a5-de9c-45c9-b233-1f618e53eaf9
+langcode: en
+status: true
+dependencies: {  }
+id: what_will_you_find_here
+label: 'Features block'
+revision: 1
+description: 'Block for showing the features of scicomm centre.'

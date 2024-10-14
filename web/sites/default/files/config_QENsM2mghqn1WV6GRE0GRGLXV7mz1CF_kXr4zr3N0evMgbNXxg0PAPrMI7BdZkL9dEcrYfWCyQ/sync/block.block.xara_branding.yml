@@ -1,0 +1,25 @@
+uuid: d48bdaa9-66a9-4711-8cbc-350c23400558
+langcode: en
+status: true
+dependencies:
+  module:
+    - system
+  theme:
+    - xara
+_core:
+  default_config_hash: YVWwBKm0JC7x3h7h7HWTH_-5tu2UI0ofRG4ZzmpUz8E
+id: xara_branding
+theme: xara
+region: header
+weight: 0
+provider: null
+plugin: system_branding_block
+settings:
+  id: system_branding_block
+  label: 'Site branding'
+  label_display: '0'
+  provider: system
+  use_site_logo: true
+  use_site_name: false
+  use_site_slogan: false
+visibility: {  }

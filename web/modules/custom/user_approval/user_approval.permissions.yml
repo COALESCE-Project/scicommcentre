@@ -1,0 +1,4 @@
+approve users:
+  title: 'Administer user approvals'
+  description: 'Allow admins to approve or reject registered users.'
+  restrict access: true

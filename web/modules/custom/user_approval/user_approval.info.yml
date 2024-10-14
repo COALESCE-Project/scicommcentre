@@ -1,0 +1,7 @@
+name: 'User Approval'
+type: module
+description: 'Adds a user approval system for admins.'
+package: Custom
+core_version_requirement: ^10
+dependencies:
+  - drupal:user

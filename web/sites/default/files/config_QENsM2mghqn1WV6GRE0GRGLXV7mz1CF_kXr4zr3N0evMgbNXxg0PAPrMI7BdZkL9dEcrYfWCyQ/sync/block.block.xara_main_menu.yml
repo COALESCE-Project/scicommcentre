@@ -1,0 +1,27 @@
+uuid: 1db1f6fa-7a12-4a19-aab1-7807470c6046
+langcode: en
+status: true
+dependencies:
+  config:
+    - system.menu.main
+  module:
+    - system
+  theme:
+    - xara
+_core:
+  default_config_hash: BipxijpQqOt8D2i-VyLgjDumFZ-DQb_CEeF56O-Oktw
+id: xara_main_menu
+theme: xara
+region: primary_menu
+weight: 0
+provider: null
+plugin: 'system_menu_block:main'
+settings:
+  id: 'system_menu_block:main'
+  label: 'Main navigation'
+  label_display: '0'
+  provider: system
+  level: 1
+  depth: 5
+  expand_all_items: false
+visibility: {  }

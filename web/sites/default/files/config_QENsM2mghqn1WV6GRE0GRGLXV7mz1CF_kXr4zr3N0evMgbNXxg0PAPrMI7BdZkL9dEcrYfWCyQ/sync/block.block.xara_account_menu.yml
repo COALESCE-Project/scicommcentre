@@ -1,0 +1,27 @@
+uuid: 85c48695-db2d-4239-bc2d-e0bc41f1802a
+langcode: en
+status: true
+dependencies:
+  config:
+    - system.menu.account
+  module:
+    - system
+  theme:
+    - xara
+_core:
+  default_config_hash: oFb1fHH4gxB4JW2A8uUjmMZTIA_hbTGaGeUYOQNjvOw
+id: xara_account_menu
+theme: xara
+region: hidden
+weight: -10
+provider: null
+plugin: 'system_menu_block:account'
+settings:
+  id: 'system_menu_block:account'
+  label: 'User account menu'
+  label_display: '0'
+  provider: system
+  level: 1
+  depth: 1
+  expand_all_items: false
+visibility: {  }

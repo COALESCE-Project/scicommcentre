@@ -1,0 +1,22 @@
+uuid: d608594b-fdc0-414a-953b-4bc79861a1ca
+langcode: en
+status: true
+dependencies:
+  config:
+    - block_content.type.what_will_you_find_here
+    - field.field.block_content.what_will_you_find_here.body
+  module:
+    - text
+id: block_content.what_will_you_find_here.default
+targetEntityType: block_content
+bundle: what_will_you_find_here
+mode: default
+content:
+  body:
+    type: text_default
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    weight: 0
+    region: content
+hidden: {  }

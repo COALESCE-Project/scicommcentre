@@ -1,0 +1,7 @@
+name: 'Custom User Profile'
+type: module
+description: 'A custom module to create and store user profile information.'
+core_version_requirement: ^10
+package: Custom
+dependencies:
+  - drupal:user

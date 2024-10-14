@@ -1,0 +1,24 @@
+user_approval.user_approval_page:
+  path: '/admin/user-approval'
+  defaults:
+    _controller: '\Drupal\user_approval\Controller\UserApprovalController::approvalPage'
+    _title: 'User Approval'
+  requirements:
+    _permission: 'approve users'
+
+user_approval.approve_user:
+  path: '/admin/user-approval/{user}/approve'
+  defaults:
+    _controller: '\Drupal\user_approval\Controller\UserApprovalController::approveUser'
+    _title: 'Approve User'
+  requirements:
+    _permission: 'approve users'
+    user: \d+  
+user_approval.reject_user:
+  path: '/admin/user-approval/{user}/reject'
+  defaults:
+    _controller: '\Drupal\user_approval\Controller\UserApprovalController::rejectUser'
+    _title: 'Reject User'
+  requirements:
+    _permission: 'approve users'
+    user: \d+  

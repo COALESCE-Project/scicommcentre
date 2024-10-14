@@ -320,7 +320,7 @@ libraries-extend:
   tour/tour:
     - stable/tour
 
-# Information added by Drupal.org packaging script on 2022-09-13
-version: '2.0.0'
+# Information added by Drupal.org packaging script on 2024-07-16
+version: '2.0.1'
 project: 'stable'
-datestamp: 1663102969
+datestamp: 1721132954

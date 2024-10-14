@@ -1,0 +1,7 @@
+name: Signin Module
+type: module
+description: 'Custom module for user sign-in form.'
+core_version_requirement: ^10
+package: Custom
+dependencies:
+  - drupal:user

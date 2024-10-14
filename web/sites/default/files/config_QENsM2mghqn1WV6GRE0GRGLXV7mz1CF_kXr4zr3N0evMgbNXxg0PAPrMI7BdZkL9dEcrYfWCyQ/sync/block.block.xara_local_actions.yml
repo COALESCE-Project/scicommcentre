@@ -1,0 +1,20 @@
+uuid: b844b3b0-b35e-48d6-990a-24bc92c6c68f
+langcode: en
+status: true
+dependencies:
+  theme:
+    - xara
+_core:
+  default_config_hash: DOS206Z-x5odo4Qg2p1k9AEskDRi9ldy-B9eNYTFg6o
+id: xara_local_actions
+theme: xara
+region: content
+weight: -5
+provider: null
+plugin: local_actions_block
+settings:
+  id: local_actions_block
+  label: 'Primary admin actions'
+  label_display: '0'
+  provider: core
+visibility: {  }

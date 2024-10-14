@@ -21,12 +21,15 @@
     "require": {
         "composer/installers": "^2.0",
         "cweagans/composer-patches": "^1.7",
+        "drupal/backup_migrate": "^5.0",
         "drupal/classy": "^1.0",
         "drupal/core-composer-scaffold": "^10.2",
         "drupal/core-project-message": "^10.2",
         "drupal/core-recommended": "^10.2",
         "drupal/mysql56": "^1.7",
         "drupal/pathauto": "1.12",
+        "drupal/simple_menu_permissions": "^2.1",
+        "drupal/smtp": "^1.4",
         "drupal/stage_file_proxy": "^2.1"
     },
     "conflict": {
@@ -106,6 +109,15 @@
         }
     },
     "require-dev": {
-        "drush/drush": "^12.5"
+        "drush/drush": "^13.1"
+    },
+    "autoload": {
+        "psr-4": {
+            "Drupal\\signup_module\\": "web/modules/custom/signup_module/src/",
+            "Drupal\\signin_module\\": "web/modules/custom/signin_module/src/",
+            "Drupal\\list_registered_users\\": "web/modules/custom/list_registered_users/src/",
+            "Drupal\\custom_user_profile\\": "web/modules/custom/custom_user_profile/src/"
+        }
     }
+
 }

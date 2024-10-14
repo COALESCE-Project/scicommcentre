@@ -1,0 +1,74 @@
+# Ignore Drupal core files
+/core/
+/vendor/
+
+# Ignore temporary files
+/tmp/
+/public/sites/default/files/
+/public/sites/default/private/
+
+# Ignore settings files (potentially sensitive)
+public/sites/default/settings.php
+public/sites/default/services.yml
+
+# Ignore local configuration files
+public/sites/default/files/config_*/sync/
+/public/sites/default/private/
+
+# Ignore Drupal-specific log files
+public/sites/default/files/*.log
+
+# Ignore Composer dependencies
+/composer.lock
+/vendor/
+
+# Ignore IDE/editor specific files
+/.idea/
+/*.sublime-project
+/*.sublime-workspace
+
+# Ignore OS specific files
+.DS_Store
+Thumbs.db
+
+# Ignore build artifacts
+/build/
+/*.tgz
+/*.tar.gz
+/*.zip
+
+# Ignore Drush configuration files
+.drush/
+
+# Ignore PHPUnit configuration and results
+/phpunit.xml
+/phpunit.xml.dist
+/.phpunit.result.cache
+
+# Ignore npm/yarn related files
+/node_modules/
+/package-lock.json
+/yarn.lock
+
+# Ignore environment specific files
+.env
+.env.local
+.env.*.local
+
+# Ignore Composer cache directory
+/composer_cache/
+
+# Ignore any other temporary files
+*.tmp
+*.swp
+*.bak
+*.orig
+*.log
+*.pid
+*.seed
+
+# Ignore .htaccess files
+*.htaccess
+
+# ignore installed vendor packages
+/vendor/

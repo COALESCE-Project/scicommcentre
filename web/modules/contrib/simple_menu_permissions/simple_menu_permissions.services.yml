@@ -1,0 +1,5 @@
+services:
+  simple_menu_permissions.route_subscriber:
+    class: Drupal\simple_menu_permissions\Routing\RouteSubscriber
+    tags:
+      - { name: event_subscriber }

@@ -1,0 +1,25 @@
+uuid: ff2b4007-ffc5-46f5-80a4-314f45fc4407
+langcode: en
+status: true
+dependencies:
+  content:
+    - 'block_content:custom_footer_column:78e3043f-a7d4-4e8e-9cba-3f084cf96c1b'
+  module:
+    - block_content
+  theme:
+    - xara
+id: xara_contact
+theme: xara
+region: footer_one
+weight: -8
+provider: null
+plugin: 'block_content:78e3043f-a7d4-4e8e-9cba-3f084cf96c1b'
+settings:
+  id: 'block_content:78e3043f-a7d4-4e8e-9cba-3f084cf96c1b'
+  label: Contact
+  label_display: '0'
+  provider: block_content
+  status: true
+  info: ''
+  view_mode: full
+visibility: {  }

@@ -1,0 +1,7 @@
+list_registered_users.list:
+  path: '/admin/registered-users'
+  defaults:
+    _controller: '\Drupal\list_registered_users\Controller\ListRegisteredUsersController::listUsers'
+    _title: 'List of Registered Users'
+  requirements:
+    _permission: 'administer users'

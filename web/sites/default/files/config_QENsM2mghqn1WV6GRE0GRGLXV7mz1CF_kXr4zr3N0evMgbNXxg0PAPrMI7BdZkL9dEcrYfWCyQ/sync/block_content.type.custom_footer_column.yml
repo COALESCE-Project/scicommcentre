@@ -1,0 +1,8 @@
+uuid: 3c4440a2-28c4-4506-b914-6e2844f47738
+langcode: en
+status: true
+dependencies: {  }
+id: custom_footer_column
+label: 'Custom Footer Column '
+revision: 1
+description: 'Block to add footer column content.'

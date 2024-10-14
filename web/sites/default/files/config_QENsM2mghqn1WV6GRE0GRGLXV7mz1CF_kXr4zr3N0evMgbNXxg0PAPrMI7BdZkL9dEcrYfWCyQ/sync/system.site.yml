@@ -1,0 +1,14 @@
+_core:
+  default_config_hash: VDJxTZtQR21qB4lvOq8zszJZLvLKrSPQpdn2E3T71Ww
+langcode: en
+uuid: bb663036-00dc-4e17-be38-e5b8ae6eeccc
+name: scicommcentre.eu
+mail: abdul.abbasi@lut.fi
+slogan: ''
+page:
+  403: ''
+  404: ''
+  front: /node/6
+admin_compact_mode: false
+weight_select_max: 100
+default_langcode: en

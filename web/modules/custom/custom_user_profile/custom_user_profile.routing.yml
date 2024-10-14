@@ -1,0 +1,7 @@
+custom_user_profile.form:
+  path: '/user/custom-profile'
+  defaults:
+    _form: '\Drupal\custom_user_profile\Form\CustomUserProfileForm'
+    _title: 'Custom User Profile'
+  requirements:
+    _permission: 'access content'

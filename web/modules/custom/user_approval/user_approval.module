@@ -1,0 +1,37 @@
+<?php
+
+/**
+ * @file
+ * Contains the implementation of the User Approval module.
+ */
+
+/**
+ * Implements hook_menu_links_discovered_alter().
+ *
+ * Alters the visibility of the "User Approval" menu item based on permissions.
+ */
+function user_approval_menu_links_discovered_alter(array &$links) {
+  // Iterate through each menu link.
+  foreach ($links as $key => &$link) {
+    // Check if the link has a 'route_name' key and if it matches the 'User Approval' page route.
+    if (isset($link['route_name']) && $link['route_name'] === 'user_approval.user_approval_page') {
+      // Check if the current user has the 'approve users' permission.
+      if (!\Drupal::currentUser()->hasPermission('approve users')) {
+        // Remove the link if the user does not have the required permission.
+        unset($links[$key]);
+      }
+    }
+  }
+}
+
+/**
+ * Implements hook_help().
+ *
+ * Provides documentation for the User Approval module on the module help page.
+ */
+function user_approval_help($route_name, \Drupal\Core\Routing\RouteMatchInterface $route_match) {
+  switch ($route_name) {
+    case 'help.page.user_approval':
+      return '<p>' . t('The User Approval module allows administrators to approve or reject registered users.') . '</p>';
+  }
+}

@@ -1,0 +1,22 @@
+uuid: fe6cea9c-79c7-45d4-b937-2b785122b096
+langcode: en
+status: true
+dependencies:
+  module:
+    - system
+  theme:
+    - thex
+_core:
+  default_config_hash: 1_htSHUpXas0KNjjireEQ9rPZfl8AE3XquS0qLuEsTo
+id: thex_messages
+theme: thex
+region: highlighted
+weight: 0
+provider: null
+plugin: system_messages_block
+settings:
+  id: system_messages_block
+  label: 'Status messages'
+  label_display: '0'
+  provider: system
+visibility: {  }

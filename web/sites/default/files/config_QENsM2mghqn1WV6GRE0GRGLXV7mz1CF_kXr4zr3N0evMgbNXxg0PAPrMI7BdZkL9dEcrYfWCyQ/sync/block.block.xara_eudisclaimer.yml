@@ -1,0 +1,25 @@
+uuid: e4d53fd3-6c26-4556-bb3f-2534452c62ad
+langcode: en
+status: true
+dependencies:
+  content:
+    - 'block_content:custom_footer_column:517fc938-479e-44fe-b710-33c4e9601fd9'
+  module:
+    - block_content
+  theme:
+    - xara
+id: xara_eudisclaimer
+theme: xara
+region: footer_four
+weight: -8
+provider: null
+plugin: 'block_content:517fc938-479e-44fe-b710-33c4e9601fd9'
+settings:
+  id: 'block_content:517fc938-479e-44fe-b710-33c4e9601fd9'
+  label: 'EU Disclaimer '
+  label_display: '0'
+  provider: block_content
+  status: true
+  info: ''
+  view_mode: full
+visibility: {  }

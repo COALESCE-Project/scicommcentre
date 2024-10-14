@@ -1,0 +1,5 @@
+signup_form_styles:
+  version: 1.x
+  css:
+    theme:
+      css/signup_module.styles.css: {}

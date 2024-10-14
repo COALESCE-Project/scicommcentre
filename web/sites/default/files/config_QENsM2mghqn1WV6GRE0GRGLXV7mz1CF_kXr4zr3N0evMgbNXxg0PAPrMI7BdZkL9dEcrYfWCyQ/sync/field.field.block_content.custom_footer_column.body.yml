@@ -1,0 +1,30 @@
+uuid: 679529c1-934b-46ee-970b-d6c2c50beb30
+langcode: en
+status: true
+dependencies:
+  config:
+    - block_content.type.custom_footer_column
+    - field.storage.block_content.body
+    - filter.format.basic_html
+    - filter.format.full_html
+    - filter.format.plain_text
+  module:
+    - text
+id: block_content.custom_footer_column.body
+field_name: body
+entity_type: block_content
+bundle: custom_footer_column
+label: Body
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  display_summary: false
+  required_summary: false
+  allowed_formats:
+    - basic_html
+    - full_html
+    - plain_text
+field_type: text_with_summary
