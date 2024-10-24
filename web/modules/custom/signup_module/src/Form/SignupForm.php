@@ -27,6 +27,13 @@ class SignupForm extends FormBase {
     $form['#prefix'] = '<div class="signup-form-wrapper">';
     $form['#suffix'] = '</div>';
 
+    $form['username'] = [
+      '#type' => 'textfield',
+      '#title' => $this->t('Enter Username'),
+      '#description' => $this->t('Please enter your preferred username.'),
+      '#required' => TRUE,
+    ];
+
     $form['email'] = [
       '#type' => 'email',
       '#title' => $this->t('Enter Email'),
@@ -58,17 +65,28 @@ class SignupForm extends FormBase {
    * {@inheritdoc}
    */
   public function validateForm(array &$form, FormStateInterface $form_state) {
+    $username = $form_state->getValue('username');
     $email = $form_state->getValue('email');
     $password = $form_state->getValue('password');
 
-    // Check if a user with the provided email exists.
-    $user_query = \Drupal::entityQuery('user')
-      ->condition('mail', $email)
-      ->condition('status', 1) // Ensure the user is active.
-      ->accessCheck(FALSE) // Disable access checking to avoid permissions errors.
+    // Check if a user with the provided username exists.
+    $user_query_username = \Drupal::entityQuery('user')
+      ->condition('name', $username)
+      ->accessCheck(FALSE)
       ->execute();
 
-    if (!empty($user_query)) {
+    if (!empty($user_query_username)) {
+      $form_state->setErrorByName('username', $this->t('The username is already taken. Please choose another.'));
+    }
+
+    // Check if a user with the provided email exists.
+    $user_query_email = \Drupal::entityQuery('user')
+      ->condition('mail', $email)
+      ->condition('status', 1) // Ensure the user is active.
+      ->accessCheck(FALSE)
+      ->execute();
+
+    if (!empty($user_query_email)) {
       $form_state->setErrorByName('email', $this->t('A user account with this email already exists.'));
       return;
     }
@@ -90,6 +108,7 @@ class SignupForm extends FormBase {
   public function submitForm(array &$form, FormStateInterface $form_state) {
     // Create a new user entity with status 0 (blocked) until verified.
     $user = User::create([
+      'name' => $form_state->getValue('username'), // Get the username from the form.
       'mail' => $form_state->getValue('email'),
       'pass' => $form_state->getValue('password'),
       'status' => 0,

@@ -5,3 +5,17 @@ signup_module.signup_form:
     _title: 'User Sign-Up'
   requirements:
     _permission: 'access content'
+
+
+signup_module.verify:
+  path: '/signup/verify/{user}'
+  defaults:
+    _controller: '\Drupal\signup_module\Controller\SignupController::verifyUser'
+    _title: 'Verify User'
+  requirements:
+    _permission: 'access content'
+  options:
+    parameters:
+      user:
+        type: 'entity:user'
+
