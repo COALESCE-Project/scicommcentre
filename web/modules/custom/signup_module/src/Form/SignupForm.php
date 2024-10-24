@@ -108,32 +108,37 @@ class SignupForm extends FormBase {
   public function submitForm(array &$form, FormStateInterface $form_state) {
     // Create a new user entity with status 0 (blocked) until verified.
     $user = User::create([
-      'name' => $form_state->getValue('username'), // Get the username from the form.
+      'name' => $form_state->getValue('username'),
       'mail' => $form_state->getValue('email'),
       'pass' => $form_state->getValue('password'),
       'status' => 0,
     ]);
-
+  
     // Save the user entity.
     $user->save();
-
+  
     // Generate verification link.
     $verification_link = Url::fromRoute('signup_module.verify', ['user' => $user->id()], ['absolute' => TRUE])->toString();
-
+  
     // Send verification email.
     $mailManager = \Drupal::service('plugin.manager.mail');
     $module = 'signup_module';
     $key = 'user_verification';
     $to = $user->getEmail();
-    $params['message'] = $this->t('Please click the following link to verify your registration: @link', ['@link' => $verification_link]);
+    
+    // Email message with verification link.
+    $params['subject'] = $this->t('Verify your registration');
+    $params['message'] = $this->t('Hello, please click the following link to verify your registration: <a href="@link">Verify your account</a>', ['@link' => $verification_link]);
+    
     $langcode = $user->getPreferredLangcode();
     $send = TRUE;
-
+  
     $mailManager->mail($module, $key, $to, $langcode, $params, NULL, $send);
-
+  
     // Redirect to the confirmation page.
     $form_state->setRedirect('signup_module.verification_sent');
   }
+  
 
   /**
    * {@inheritdoc}

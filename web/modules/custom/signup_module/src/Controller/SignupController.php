@@ -3,6 +3,8 @@
 namespace Drupal\signup_module\Controller;
 
 use Drupal\Core\Controller\ControllerBase;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Drupal\user\UserInterface;
 
 class SignupController extends ControllerBase {
@@ -24,8 +26,8 @@ class SignupController extends ControllerBase {
     // Display a success message.
     $this->messenger()->addMessage($this->t('Your account has been successfully verified. You can now log in.'));
 
-    // Redirect to the user login page.
-    return $this->redirect('user.login');
+    // Redirect to the user sign-in page.
+    return new RedirectResponse('/scicommcentre/web/signin');
   }
 
   /**

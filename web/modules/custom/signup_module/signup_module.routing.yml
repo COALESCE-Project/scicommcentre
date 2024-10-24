@@ -19,3 +19,13 @@ signup_module.verify:
       user:
         type: 'entity:user'
 
+signup_module.verification_sent:
+  path: '/signup/verification-sent'
+  defaults:
+    _controller: '\Drupal\signup_module\Controller\SignupController::verificationSent'
+    _title: 'Verification Email Sent'
+  requirements:
+    _permission: 'access content'
+
+
+
