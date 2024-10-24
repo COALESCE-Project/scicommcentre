@@ -83,15 +83,16 @@ class SigninForm extends FormBase {
       ->condition('status', 1)
       ->accessCheck(FALSE) // Disable access checking to avoid permissions errors.
       ->execute();
-
+  
     $user = User::load(reset($user_query));
-
+  
     // Sign in the user.
     user_login_finalize($user);
-
-    // Redirect to user dashboard or home page.
-    $url = Url::fromRoute('<front>');
+  
+    // Redirect to the custom user profile page.
+    $url = Url::fromUri('internal:/user/custom-profile');
     $response = new RedirectResponse($url->toString());
     $response->send();
   }
+  
 }

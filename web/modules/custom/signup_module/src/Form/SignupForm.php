@@ -111,7 +111,7 @@ class SignupForm extends FormBase {
       'name' => $form_state->getValue('username'),
       'mail' => $form_state->getValue('email'),
       'pass' => $form_state->getValue('password'),
-      'status' => 0,
+      'status' => 1,
     ]);
   
     // Save the user entity.
