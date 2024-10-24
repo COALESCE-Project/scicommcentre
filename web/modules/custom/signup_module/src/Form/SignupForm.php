@@ -4,7 +4,10 @@ namespace Drupal\signup_module\Form;
 
 use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Url;
 use Drupal\user\Entity\User;
+use Drupal\Core\Mail\MailManagerInterface;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 class SignupForm extends FormBase {
 
@@ -85,17 +88,40 @@ class SignupForm extends FormBase {
    * {@inheritdoc}
    */
   public function submitForm(array &$form, FormStateInterface $form_state) {
-    // Create a new user entity.
+    // Create a new user entity with status 0 (blocked) until verified.
     $user = User::create([
       'mail' => $form_state->getValue('email'),
       'pass' => $form_state->getValue('password'),
-      'status' => 1,
+      'status' => 0,
     ]);
 
     // Save the user entity.
     $user->save();
 
-    // Display a success message.
-    \Drupal::messenger()->addMessage($this->t('Thank you for registering.'));
+    // Generate verification link.
+    $verification_link = Url::fromRoute('signup_module.verify', ['user' => $user->id()], ['absolute' => TRUE])->toString();
+
+    // Send verification email.
+    $mailManager = \Drupal::service('plugin.manager.mail');
+    $module = 'signup_module';
+    $key = 'user_verification';
+    $to = $user->getEmail();
+    $params['message'] = $this->t('Please click the following link to verify your registration: @link', ['@link' => $verification_link]);
+    $langcode = $user->getPreferredLangcode();
+    $send = TRUE;
+
+    $mailManager->mail($module, $key, $to, $langcode, $params, NULL, $send);
+
+    // Redirect to the confirmation page.
+    $form_state->setRedirect('signup_module.verification_sent');
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public static function create(ContainerInterface $container) {
+    return new static(
+      $container->get('plugin.manager.mail')
+    );
   }
 }

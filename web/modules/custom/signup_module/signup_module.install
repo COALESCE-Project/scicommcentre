@@ -1,0 +1,59 @@
+<?php
+
+/**
+ * Implements hook_install() for signup_module.
+ * This will set up the SMTP configuration automatically when the module is installed.
+ */
+function signup_module_install() {
+  // Load the configuration factory.
+  $config_factory = \Drupal::service('config.factory');
+  $smtp_config = $config_factory->getEditable('smtp.settings');
+
+  // Set SMTP server details.
+  $smtp_config
+    ->set('smtp_on', TRUE)
+    ->set('smtp_host', 'smtp.gmail.com') // SMTP server address for Gmail.
+    ->set('smtp_port', 587) // Use port 587 for TLS.
+    ->set('smtp_protocol', 'tls') // Use 'tls' for Gmail.
+    ->set('smtp_username', 'turzo.lut@gmail.com') // Replace with Gmail email address.
+    ->set('smtp_password', 'udhp awic yzcr vfev') // Replace with Gmail App Password.
+    ->set('smtp_from', 'turzo.lut@gmail.com') // Replace with Gmail email address.
+    ->set('smtp_replyto', 'turzo.lut@gmail.com') // Replace with Gmail email address.
+    ->set('smtp_fromname', 'scicommcentre') // Replace with the sender's name.
+    ->save();
+}
+
+/**
+ * Implements hook_update_N() for signup_module.
+ * This will update the SMTP configuration when the module is updated.
+ */
+function signup_module_update_8101() {
+  // Load the configuration factory.
+  $config_factory = \Drupal::service('config.factory');
+  $smtp_config = $config_factory->getEditable('smtp.settings');
+
+  // Set SMTP server details.
+  $smtp_config
+    ->set('smtp_on', TRUE)
+    ->set('smtp_host', 'smtp.gmail.com') // SMTP server address for Gmail.
+    ->set('smtp_port', 587) // Use port 587 for TLS.
+    ->set('smtp_protocol', 'tls') // Use 'tls' for Gmail.
+    ->set('smtp_username', 'turzo.lut@gmail.com') // Replace with Gmail email address.
+    ->set('smtp_password', 'udhp awic yzcr vfev') // Replace with Gmail App Password.
+    ->set('smtp_from', 'turzo.lut@gmail.com') // Replace with Gmail email address.
+    ->set('smtp_replyto', 'turzo.lut@gmail.com') // Replace with Gmail email address.
+    ->set('smtp_fromname', 'scicommcentre') // Replace with the sender's name.
+    ->save();
+}
+
+
+function signup_module_update_8102() {
+  $config_factory = \Drupal::service('config.factory');
+  $site_config = $config_factory->getEditable('system.site');
+  
+  // Set the site-wide email address to preferred email.
+  $site_config
+    ->set('mail', 'turzo.lut@gmail.com') // Replace with the email address.
+    ->set('smtp_debug', TRUE) // Enable SMTP debugging.
+    ->save();
+}
