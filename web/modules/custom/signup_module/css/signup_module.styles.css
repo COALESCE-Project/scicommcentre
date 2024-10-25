@@ -1,33 +1,30 @@
 .signup-form-wrapper {
-    max-width: 600px;
-    margin: 30px auto;
-    padding: 20px;
-    background-color: #ffffff; /* White background to ensure it works with any theme. */
-    border-radius: 10px;
-    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
-  }
-  
-  .signup-form-wrapper input,
-  .signup-form-wrapper textarea {
-    width: 100%;
-    padding: 10px;
-    margin-bottom: 15px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    box-sizing: border-box;
-  }
-  
-  .signup-form-wrapper button {
-    width: 100%;
-    padding: 12px;
-    background-color: #007bff; /* Blue color that matches most themes, customizable. */
-    color: #ffffff;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-  }
-  
-  .signup-form-wrapper button:hover {
-    background-color: #0056b3; /* Darker blue on hover. */
-  }
-  
+  max-width: 400px;
+  margin: 20px auto;
+  padding: 20px;
+  background-color: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+}
+
+.signup-form-wrapper input {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.signup-form-wrapper button {
+  width: 100%;
+  padding: 12px;
+  background-color: #007bff;
+  color: #ffffff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.signup-form-wrapper button:hover {
+  background-color: #0056b3;
+}

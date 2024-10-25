@@ -1,0 +1,19 @@
+<?php
+
+/**
+ * Implements hook_mail().
+ */
+function signup_module_mail($key, &$message, $params) {
+  switch ($key) {
+    case 'verify_user':
+      // Set the subject of the email.
+      $message['subject'] = $params['subject'];
+
+      // Set the body of the email.
+      $message['body'][] = $params['body'];
+
+      // Optionally, set headers if needed.
+      $message['headers']['Content-Type'] = 'text/html; charset=UTF-8';
+      break;
+  }
+}

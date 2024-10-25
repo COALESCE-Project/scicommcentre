@@ -3,7 +3,6 @@
 namespace Drupal\signup_module\Controller;
 
 use Drupal\Core\Controller\ControllerBase;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Drupal\user\UserInterface;
 
@@ -15,19 +14,30 @@ class SignupController extends ControllerBase {
    * @param \Drupal\user\UserInterface $user
    *   The user entity to verify.
    *
-   * @return \Symfony\Component\HttpFoundation\RedirectResponse
-   *   A redirect to the user login page after verification.
+   * @return array
+   *   A render array for the user verification page.
    */
   public function verifyUser(UserInterface $user) {
     // Set the user status to active.
     $user->set('status', 1);
     $user->save();
 
-    // Display a success message.
-    $this->messenger()->addMessage($this->t('Your account has been successfully verified. You can now log in.'));
+    // Display a success message with a button to sign in.
+    $build = [
+      '#markup' => $this->t('Your account has been successfully verified. You can now sign in.'),
+    ];
 
-    // Redirect to the user sign-in page.
-    return new RedirectResponse('/scicommcentre/web/signin');
+    // Add a button that redirects to the sign-in page.
+    $build['sign_in_button'] = [
+      '#type' => 'link',
+      '#title' => $this->t('Sign In Now'),
+      '#url' => \Drupal\Core\Url::fromUri('internal:/signin'),
+      '#attributes' => [
+        'class' => ['button', 'button--primary'],
+      ],
+    ];
+
+    return $build;
   }
 
   /**
@@ -38,7 +48,7 @@ class SignupController extends ControllerBase {
    */
   public function verificationSent() {
     return [
-      '#markup' => $this->t('A verification email has been sent to your email address. Please check your inbox and follow the instructions to complete the registration.'),
+      '#markup' => $this->t('Please check your inbox and follow the instructions to complete the registration.'),
     ];
   }
 }

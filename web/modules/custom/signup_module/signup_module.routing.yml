@@ -7,18 +7,6 @@ signup_module.signup_form:
     _permission: 'access content'
 
 
-signup_module.verify:
-  path: '/signup/verify/{user}'
-  defaults:
-    _controller: '\Drupal\signup_module\Controller\SignupController::verifyUser'
-    _title: 'Verify User'
-  requirements:
-    _permission: 'access content'
-  options:
-    parameters:
-      user:
-        type: 'entity:user'
-
 signup_module.verification_sent:
   path: '/signup/verification-sent'
   defaults:
@@ -26,6 +14,17 @@ signup_module.verification_sent:
     _title: 'Verification Email Sent'
   requirements:
     _permission: 'access content'
+
+
+signup_module.verify_user:
+  path: '/signup/verify/{user}'
+  defaults:
+    _controller: '\Drupal\signup_module\Controller\SignupController::verifyUser'
+    _title: 'Verify User'
+  requirements:
+    _access: 'TRUE' 
+
+
 
 
 

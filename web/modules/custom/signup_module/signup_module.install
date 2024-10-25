@@ -57,3 +57,4 @@ function signup_module_update_8102() {
     ->set('smtp_debug', TRUE) // Enable SMTP debugging.
     ->save();
 }
+
