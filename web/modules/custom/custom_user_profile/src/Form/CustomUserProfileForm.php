@@ -4,11 +4,15 @@ namespace Drupal\custom_user_profile\Form;
 
 use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Url;
 use Drupal\Core\Database\Connection;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Drupal\file\Entity\File;
-use Drupal\user\Entity\User;
+use function \Drupal\file_create_url; 
 
+/**
+ * Class CustomUserProfileForm.
+ */
 class CustomUserProfileForm extends FormBase {
 
   protected $database;
@@ -23,10 +27,16 @@ class CustomUserProfileForm extends FormBase {
     );
   }
 
+  /**
+   * {@inheritdoc}
+   */
   public function getFormId() {
     return 'custom_user_profile_form';
   }
 
+  /**
+   * {@inheritdoc}
+   */
   public function buildForm(array $form, FormStateInterface $form_state) {
     $user = \Drupal::currentUser();
     $user_id = $user->id();
@@ -45,248 +55,174 @@ class CustomUserProfileForm extends FormBase {
     $form['#prefix'] = '<div class="custom-user-profile-wrapper">';
     $form['#suffix'] = '</div>';
 
-    // Consent and confirmation fields.
-    $form['consent_read'] = [
-      '#type' => 'checkbox',
-      '#title' => $this->t('I confirm I have read and understood the privacy policy'),
-      '#required' => TRUE,
-      '#default_value' => $user_data['consent_read'] ?? 0,
+    // Basic Information Section
+    $form['basic_info'] = [
+      '#type' => 'fieldset',
+      '#title' => $this->t('Basic Information'),
+      '#attributes' => ['class' => ['form-section']],
     ];
 
-    $form['consent_data'] = [
-      '#type' => 'checkbox',
-      '#title' => $this->t('I consent to the collection of data'),
-      '#required' => TRUE,
-      '#default_value' => $user_data['consent_data'] ?? 0,
-    ];
-
-    $form['consent_public'] = [
-      '#type' => 'checkbox',
-      '#title' => $this->t('I consent to have my profile publicly visible in the matchmaking tool'),
-      '#required' => TRUE,
-      '#default_value' => $user_data['consent_public'] ?? 0,
-    ];
-
-    // User details
-    $form['name'] = [
+    $form['basic_info']['name'] = [
       '#type' => 'textfield',
-      '#title' => $this->t('Name'),
+      '#title' => $this->t('First Name'),
       '#required' => TRUE,
       '#default_value' => $user_data['name'] ?? '',
     ];
 
-    $form['surname'] = [
+    $form['basic_info']['surname'] = [
       '#type' => 'textfield',
       '#title' => $this->t('Surname'),
       '#required' => TRUE,
       '#default_value' => $user_data['surname'] ?? '',
     ];
 
-    $form['email'] = [
+    $form['basic_info']['email'] = [
       '#type' => 'email',
       '#title' => $this->t('Email'),
       '#required' => TRUE,
       '#default_value' => $user_data['email'] ?? '',
     ];
 
-    $form['email_visible'] = [
+    $form['basic_info']['email_visible'] = [
       '#type' => 'checkbox',
-      '#title' => $this->t('Make email visible on profile'),
+      '#title' => $this->t('Make email visible in public profile'),
       '#default_value' => $user_data['email_visible'] ?? 0,
     ];
 
-    $form['picture'] = [
+    // Profile Picture Section
+    $form['profile_picture'] = [
       '#type' => 'managed_file',
       '#title' => $this->t('Profile Picture'),
       '#upload_location' => 'public://profile_pictures/',
-      '#default_value' => $user_data['picture'] ?? '',
-      '#required' => FALSE,
-      '#description' => $this->t('Upload a profile picture. Allowed extensions: jpg, jpeg, png.'),
+      '#default_value' => isset($user_data['picture']) ? [$user_data['picture']] : [],
+      '#description' => $this->t('Upload your profile picture.'),
     ];
 
-    $form['gender'] = [
-      '#type' => 'select',
-      '#title' => $this->t('Gender'),
-      '#options' => [
-        'woman' => $this->t('Woman'),
-        'man' => $this->t('Man'),
-        'non_binary' => $this->t('Non-binary'),
-        'prefer_not_disclose' => $this->t('Prefer not to disclose'),
-        'self_describe' => $this->t('Prefer to self-describe'),
-      ],
-      '#required' => TRUE,
-      '#default_value' => $user_data['gender'] ?? '',
+    if (isset($user_data['picture']) && !empty($user_data['picture'])) {
+      $file = File::load($user_data['picture']);
+      if ($file) {
+        $form['profile_picture_display'] = [
+          '#markup' => '<img src="' . \Drupal::service('file_url_generator')->generateAbsoluteString($file->getFileUri()) . '" alt="Profile Picture" class="profile-picture-preview">',
+        ];
+      }
+    }
+
+    // Location Information Section
+    $form['location_info'] = [
+      '#type' => 'fieldset',
+      '#title' => $this->t('Location Information'),
+      '#attributes' => ['class' => ['form-section']],
     ];
 
-    $form['year_of_birth'] = [
-      '#type' => 'select',
-      '#title' => $this->t('Year of Birth'),
-      '#options' => array_combine(range(date('Y'), 1934), range(date('Y'), 1934)),
-      '#required' => TRUE,
-      '#default_value' => $user_data['year_of_birth'] ?? '',
-    ];
-
-    $form['is_over_18'] = [
-      '#type' => 'radios',
-      '#title' => $this->t('Are you over 18?'),
-      '#options' => [
-        '1' => $this->t('Yes'),
-        '0' => $this->t('No'),
-      ],
-      '#required' => TRUE,
-      '#default_value' => $user_data['is_over_18'] ?? 1,
-    ];
-
-    $form['languages'] = [
-      '#type' => 'textfield',
-      '#title' => $this->t('Languages'),
-      '#description' => $this->t('Enter languages separated by commas.'),
-      '#required' => TRUE,
-      '#default_value' => $user_data['languages'] ?? '',
-    ];
-
-    $form['languages_public'] = [
-      '#type' => 'checkbox',
-      '#title' => $this->t('Make languages visible on profile'),
-      '#default_value' => $user_data['languages_public'] ?? 0,
-    ];
-
-    // Country and city fields
-    $form['country'] = [
+    $form['location_info']['country'] = [
       '#type' => 'textfield',
       '#title' => $this->t('Country'),
       '#required' => TRUE,
       '#default_value' => $user_data['country'] ?? '',
     ];
 
-    $form['city'] = [
+    $form['location_info']['city'] = [
       '#type' => 'textfield',
       '#title' => $this->t('City'),
       '#required' => TRUE,
       '#default_value' => $user_data['city'] ?? '',
     ];
 
-    $form['location_public'] = [
-      '#type' => 'checkbox',
-      '#title' => $this->t('Make location visible on profile'),
-      '#default_value' => $user_data['location_public'] ?? 0,
+    // Organisation Information Section
+    $form['organisation_info'] = [
+      '#type' => 'fieldset',
+      '#title' => $this->t('Organisation Information'),
+      '#attributes' => ['class' => ['form-section']],
     ];
 
-    // Organisation details
-    $form['organisation'] = [
+    $form['organisation_info']['organisation'] = [
       '#type' => 'textfield',
       '#title' => $this->t('Organisation'),
       '#default_value' => $user_data['organisation'] ?? '',
     ];
 
-    $form['organisation_public'] = [
-      '#type' => 'checkbox',
-      '#title' => $this->t('Make organisation visible on profile'),
-      '#default_value' => $user_data['organisation_public'] ?? 0,
-    ];
-
-    $form['organisation_type'] = [
-      '#type' => 'select',
+    $form['organisation_info']['organisation_type'] = [
+      '#type' => 'textfield',
       '#title' => $this->t('Type of Organisation'),
-      '#options' => [
-        'university' => $this->t('University'),
-        'sme' => $this->t('SME'),
-        'company' => $this->t('Company'),
-        'research_centre' => $this->t('Research Centre'),
-        'civic_organisation' => $this->t('Civic Organisation'),
-        'museum' => $this->t('Museum'),
-        'none' => $this->t('None'),
-        'other' => $this->t('Other'),
-      ],
       '#required' => TRUE,
       '#default_value' => $user_data['organisation_type'] ?? '',
     ];
 
-    $form['position'] = [
+    $form['organisation_info']['position'] = [
       '#type' => 'textfield',
-      '#title' => $this->t('Position within the Organisation'),
+      '#title' => $this->t('Position within Organisation'),
       '#default_value' => $user_data['position'] ?? '',
     ];
 
-    $form['position_public'] = [
-      '#type' => 'checkbox',
-      '#title' => $this->t('Make position visible on profile'),
-      '#default_value' => $user_data['position_public'] ?? 0,
+    // Consent Section
+    $form['consent'] = [
+      '#type' => 'fieldset',
+      '#title' => $this->t('Consent and Confirmation'),
+      '#attributes' => ['class' => ['form-section']],
     ];
 
-    // Submit button
+    $form['consent']['consent_read'] = [
+      '#type' => 'checkbox',
+      '#title' => $this->t('I confirm I have read and understood.'),
+      '#default_value' => $user_data['consent_read'] ?? 0,
+    ];
+
+    $form['consent']['consent_data'] = [
+      '#type' => 'checkbox',
+      '#title' => $this->t('I consent to the collection of data.'),
+      '#default_value' => $user_data['consent_data'] ?? 0,
+    ];
+
+    $form['consent']['consent_public'] = [
+      '#type' => 'checkbox',
+      '#title' => $this->t('I consent to have my profile publicly visible.'),
+      '#default_value' => $user_data['consent_public'] ?? 0,
+    ];
+
+    // Submit Button
     $form['submit'] = [
       '#type' => 'submit',
       '#value' => $this->t('Save Profile'),
-      '#attributes' => [
-        'class' => ['button--primary'],
-      ],
     ];
 
     return $form;
   }
 
-  public function validateForm(array &$form, FormStateInterface $form_state) {
-    // Add custom validation rules here if necessary.
-  }
-
+  /**
+   * {@inheritdoc}
+   */
   public function submitForm(array &$form, FormStateInterface $form_state) {
+    // Save form values to database.
     $user = \Drupal::currentUser();
     $user_id = $user->id();
+    $values = $form_state->getValues();
 
-    // Save uploaded file and set it to permanent.
-    $file_id = $form_state->getValue('picture');
-    if (!empty($file_id) && is_array($file_id)) {
-      $file = File::load($file_id[0]);
-      if ($file) {
-        $file->setPermanent();
-        $file->save();
-      }
-    }
-
-    // Insert or update the user's custom profile data.
     $fields = [
       'user_id' => $user_id,
-      'name' => $form_state->getValue('name'),
-      'surname' => $form_state->getValue('surname'),
-      'email' => $form_state->getValue('email'),
-      'email_visible' => $form_state->getValue('email_visible'),
-      'picture' => !empty($file_id) ? $file_id[0] : NULL,
-      'gender' => $form_state->getValue('gender'),
-      'year_of_birth' => $form_state->getValue('year_of_birth'),
-      'is_over_18' => $form_state->getValue('is_over_18'),
-      'languages' => $form_state->getValue('languages'),
-      'languages_public' => $form_state->getValue('languages_public'),
-      'country' => $form_state->getValue('country'),
-      'city' => $form_state->getValue('city'),
-      'location_public' => $form_state->getValue('location_public'),
-      'organisation' => $form_state->getValue('organisation'),
-      'organisation_public' => $form_state->getValue('organisation_public'),
-      'organisation_type' => $form_state->getValue('organisation_type'),
-      'position' => $form_state->getValue('position'),
-      'position_public' => $form_state->getValue('position_public'),
+      'name' => $values['name'],
+      'surname' => $values['surname'],
+      'email' => $values['email'],
+      'email_visible' => $values['email_visible'],
+      'country' => $values['country'],
+      'city' => $values['city'],
+      'organisation' => $values['organisation'],
+      'organisation_type' => $values['organisation_type'],
+      'position' => $values['position'],
+      'consent_read' => $values['consent_read'],
+      'consent_data' => $values['consent_data'],
+      'consent_public' => $values['consent_public'],
     ];
 
-    $existing = $this->database->select('user_custom_profile', 'ucp')
-      ->fields('ucp', ['id'])
-      ->condition('user_id', $user_id)
-      ->execute()
-      ->fetchField();
-
-    if ($existing) {
-      // Update the existing profile.
-      $this->database->update('user_custom_profile')
-        ->fields($fields)
-        ->condition('user_id', $user_id)
-        ->execute();
-    } else {
-      // Insert new profile data.
-      $this->database->insert('user_custom_profile')
-        ->fields($fields)
-        ->execute();
+    if (!empty($values['profile_picture'])) {
+      $fields['picture'] = reset($values['profile_picture']);
     }
 
-    // Success message.
-    $this->messenger()->addMessage($this->t('Your profile has been successfully updated.'));
+    $this->database->merge('user_custom_profile')
+      ->key(['user_id' => $user_id])
+      ->fields($fields)
+      ->execute();
+
+    // Display success message.
+    $this->messenger()->addMessage($this->t('Your profile has been updated.'));
   }
 }
